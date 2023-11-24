@@ -20,6 +20,12 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		//$this->load->view('welcome_message');
+		$this->load->view('Templates/head');
+		//$this->load->view('Templates/navBar');
+		$this->load->view('Principal/body');
+		$this->load->view('Templates/footer');
+		$this->load->view('Modals/modalesIndex');
+
 	}
 }
