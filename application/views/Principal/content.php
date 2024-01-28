@@ -43,7 +43,7 @@
 <br>
 		<div class="p-1" id="normas">
 			<div class="p-1 text-center d-flex flex-wrap justify-content-center">
-				<h3>Normas y políticas de uso del laboratorio<hr></h3>
+				<h3>Normas y políticas <strong>generales</strong> de uso del laboratorio<hr></h3>
 			</div>
 			<?php $this->load->view('Principal/normas') ?>
 		</div>	
