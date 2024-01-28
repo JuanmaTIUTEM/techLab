@@ -21,7 +21,7 @@
       <!-- Elementos del Navbar a la derecha -->
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">Inicio de sesión</a>
+          <a class="nav-link" href="<?php echo site_url('login'); ?>">Inicio de sesión</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Acerca de</a>

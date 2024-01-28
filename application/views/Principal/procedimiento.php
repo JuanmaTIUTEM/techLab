@@ -12,7 +12,7 @@
 			</p>
 		</div>
 		<div class="card-footer text-center">
-			<button type="button" class="btn btn-outline-success">Iniciar Sesión</button>
+			<a href="<?php echo site_url('login'); ?>" type="button" class="btn btn-outline-success">Iniciar Sesión</a>
 		</div>
 	</div>
 	<div class="card p-2 w-25 shadow border rounded-4 m-2 pt-3">
@@ -25,7 +25,7 @@
 			</p>
 		</div>
 		<div class="card-footer">
-			<button type="button" class="btn btn-outline-warning">Equipos y herramientas</button>
+			<a href="<?php echo site_url('inventario'); ?>" type="button" class="btn btn-outline-warning">Equipos y herramientas</a>
 		</div>
 	</div>
 	<div class="card p-2 w-25 shadow border rounded-4 m-2 pt-3">

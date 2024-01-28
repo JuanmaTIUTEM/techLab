@@ -76,9 +76,15 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
+<<<<<<< HEAD
 	'username' => 'admin_dbtechlab',
 	'password' => 'ClunrilTxG@zqhc8',
 	'database' => 'dbtechlab',
+=======
+	'username' => 'adminLab',
+	'password' => 'V_aIq.z_]ep-kQ/6',
+	'database' => 'dbTechLab',
+>>>>>>> 94ecf5a76234df9e7fe67f667245055349719e00
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
