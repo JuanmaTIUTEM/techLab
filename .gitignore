@@ -31,14 +31,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/tests/
 /tests/results/
 
-<<<<<<< HEAD
-# Archivos JM
-application/config/database.php
-application/config/autoload.php
-application/config/config.php
-=======
-#Archivos JM
-application/config/database.php
-application/config/autoload.php
-application/config/config.php
->>>>>>> desarrollo
+
