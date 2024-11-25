@@ -22,7 +22,7 @@
 
 		<div class="d-flex justify-content-center text-center">
 			<div class =" w-25">
-				<form action="/action_page.php" autocomplete="off">
+				<form action="login" autocomplete="off">
 				  <div class="mb-3 mt-3">
 				    <label for="userName" class="form-label">Usuario:</label>
 				    <input type="text" class="form-control" id="userName" placeholder="Usuario" name="userName" required>
@@ -32,7 +32,7 @@
 				    <input type="password" class="form-control" id="psw" placeholder="Contraseña" name="psw" required>
 				  </div>
 				  
-				  <button type="submit" class="btn btn-primary">Submit</button>
+				  <button type="submit" class="btn btn-success">Entrar</button>
 				</form>
 			</div>
 		</div>
