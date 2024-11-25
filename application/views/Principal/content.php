@@ -1,5 +1,53 @@
+<style>
+	body {
+	    font-family: Arial, sans-serif;
+        align-items: center; /* Centra verticalmente el contenido */
+        background-color: #f8f9fa;
+	}
+  	#main-container {
+  	    max-width: 800px; /* Ancho máximo del contenido */
+  	    padding: 20px;
+  	    background-color: white;
+  	    border-radius: 10px;
+  	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  	}
+
+  	#main-container h1 {
+  	    text-align: center;
+  	    font-size: 2rem;
+  	    margin-bottom: 20px;
+  	}
+
+  	#cambio-color {
+  	    font-size: 1rem;
+  	    line-height: 1.5;
+  	    text-align: justify;
+  	}
+
+  	/* Estilos para pantallas pequeñas */
+  	@media (max-width: 768px) {
+  	    body {
+  	       padding: 10px;
+  	    }
+
+  	    #main-container {
+  	       max-width: 95%; /* Ocupa todo el ancho disponible */
+  	       padding: 20px;
+  	    }
+
+  	    #main-container h1 {
+  	       font-size: 1.5rem; /* Título más pequeño */
+  	    }
+
+  	    #cambio-color {
+  	       font-size: 3.5vw; /* Escala relativa al ancho de la pantalla */
+  	       line-height: 4vw; /* Espaciado proporcional */
+  	    }
+  	}
+</style>
+
 <div class="content bg-light rounded-4">
-	<div class="container d-flex flex-column ">
+	<div class="main-container d-flex flex-column ">
 		<div class="p-1 text-center d-flex flex-wrap justify-content-center">
 			<h1>Control del laboratorio de Tecnologías de la Información de la UTeM<hr></h1>
 		</div>
@@ -79,4 +127,31 @@
         }
         return color;
     }
+
+
+    //responsivo
+    document.addEventListener('DOMContentLoaded', () => {
+        function adjustResponsiveness() {
+          const mainContainer = document.getElementById('main-container');
+          const textElement = document.getElementById('cambio-color');
+
+          if (mainContainer && textElement) { // Verifica que existan
+            if (window.innerWidth <= 768) { // Dispositivos móviles
+              mainContainer.classList.remove('container');
+              textElement.classList.remove('txt-desktop');
+              textElement.classList.add('txt-mobile');
+            } else { // Pantallas grandes
+              mainContainer.classList.add('container');
+              textElement.classList.remove('txt-mobile');
+              textElement.classList.add('txt-desktop');
+            }
+          }
+        }
+
+        // Ajustar la primera vez al cargar la página
+        adjustResponsiveness();
+
+        // Escuchar cambios en el tamaño de la ventana
+        window.addEventListener('resize', adjustResponsiveness);
+      });
 </script>
