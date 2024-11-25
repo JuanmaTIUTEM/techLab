@@ -1,5 +1,4 @@
-<!-- Nav tabs -->
-<div>
+
   
 
 <ul class="nav nav-tabs">

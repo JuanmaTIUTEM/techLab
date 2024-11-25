@@ -25,7 +25,7 @@
 
 	<!--JS-->
 	<script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/functions.js"></script>
+	
 
 
 </head>
