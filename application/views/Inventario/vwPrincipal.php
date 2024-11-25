@@ -44,18 +44,56 @@
 	</section>
 </body>
 <div class="modal fade" id="nwArticle">
+<<<<<<< HEAD
   <div class="modal-dialog">
+=======
+  <div class="modal-dialog modal-lg">
+>>>>>>> fcd29417ecbb65712c401949f1f155aec737076c
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
+<<<<<<< HEAD
         <h4 class="modal-title">Modal Heading</h4>
+=======
+        <h4 class="modal-title">Registro de Inventario</h4>
+>>>>>>> fcd29417ecbb65712c401949f1f155aec737076c
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
+<<<<<<< HEAD
         Modal body..
+=======
+        
+      	<h1>Registro de Inventario</h1>
+      	<div id="reader" style="width: 300px; margin: auto;"></div>
+      	<form id="registroForm">
+      	  <label for="qrResult">Código/QR Escaneado:</label>
+      	  <input type="text" id="qrResult" name="qrResult" readonly><br>
+      	  <label for="categoria">Categoría:</label>
+      	  <select id="categoria" name="categoria">
+      	    <option>Equipo de cómputo</option>
+      	    <option>Periféricos</option>
+      	    <option>Materiales electrónicos</option>
+      	  </select><br>
+      	  <label for="ubicacion">Ubicación:</label>
+      	  <select id="ubicacion" name="ubicacion">
+      	    <option>Laboratorio 1</option>
+      	    <option>Laboratorio 2</option>
+      	    <option>Aula</option>
+      	  </select><br>
+      	  <label for="estado">Estado:</label>
+      	  <select id="estado" name="estado">
+      	    <option>Nuevo</option>
+      	    <option>Usado</option>
+      	    <option>Defectuoso</option>
+      	  </select><br>
+      	  <button type="submit">Registrar</button>
+      	</form>
+        
+>>>>>>> fcd29417ecbb65712c401949f1f155aec737076c
       </div>
 
       <!-- Modal footer -->
@@ -70,5 +108,14 @@
 	function nwArticle(){
 		$('#nwArticle').modal('show');
 	}
+<<<<<<< HEAD
+=======
+	const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+      document.getElementById('qrResult').value = decodedText;
+    };
+    const html5QrCode = new Html5Qrcode("reader");
+    html5QrCode.start({ facingMode: "environment" }, { fps: 10 }, qrCodeSuccessCallback);
+  </script>
+>>>>>>> fcd29417ecbb65712c401949f1f155aec737076c
 </script>
 

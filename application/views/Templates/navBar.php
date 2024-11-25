@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
     <!-- Logo y enlace a la página de inicio -->
-    		<a class="navbar-brand" href="#" data-bs-toggle="modal" data-bs-target="#modalInfoLogo"><img class="logo" src="<?php echo base_url(); ?>assets/logos/LogotechLab1.png"></a>
+    		<a class="navbar-brand" href="<?php echo base_url(); ?>" ><img class="logo" src="<?php echo base_url(); ?>assets/logos/LogotechLab1.png"></a>
     
     
 
