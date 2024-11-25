@@ -76,20 +76,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-<<<<<<< HEAD
-	'username' => 'root',
-	'password' => '',
-=======
-<<<<<<< HEAD
 	'username' => 'admin_dbtechlab',
-	'password' => 'ClunrilTxG@zqhc8',
+	'password' => '-0XAXn!FrNHhpvYT',
 	'database' => 'dbtechlab',
-=======
-	'username' => 'adminLab',
-	'password' => 'V_aIq.z_]ep-kQ/6',
->>>>>>> a82ab34510ae0baf78e1338f92d06cd85461211d
-	'database' => 'dbTechLab',
->>>>>>> 94ecf5a76234df9e7fe67f667245055349719e00
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
