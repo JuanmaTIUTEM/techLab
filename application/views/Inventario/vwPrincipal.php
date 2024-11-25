@@ -30,12 +30,12 @@
 			</div>
 			<div class="w-50">
 				<div class="input-group mb-3">
-				  <input type="text" class="form-control" placeholder="Dato a buscar" name="findData" id="findData">
+				  <input type="text" class="form-control" placeholder="Elemento a buscar" name="findData" id="findData">
 				  <button class="btn btn-info" type="submit">Buscar</button>
 				</div>
 			</div>
 			<div class="w-25 d-flex justify-content-center">
-				<div><button type="button" class="btn btn-outline-success">Nuevo</button></div>
+			    
 			</div>
 		</div><hr>
 		<div id="menu" class="d-flex flex-wrap justify-content-center pl-5 pr-5 border border-2 rounded shadow-lg p-4 mb-4 bg-white" style="height: 200px; margin: 2%;">
@@ -43,3 +43,32 @@
 		</div>
 	</section>
 </body>
+<div class="modal fade" id="nwArticle">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	function nwArticle(){
+		$('#nwArticle').modal('show');
+	}
+</script>
+
