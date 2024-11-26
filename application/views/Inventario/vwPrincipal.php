@@ -57,7 +57,9 @@
           <button class="btn btn-info" type="submit">Buscar</button>
         </div>
       </div>
-      <div class="w-25 d-flex justify-content-center"></div>
+      <div class="w-25 d-flex justify-content-center">
+        <div><button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#nwArticle" onclick="nwArticle()">Nuevo</button></div>
+      </div>
     </div>
     <hr>
     <div id="menu" class="d-flex flex-wrap justify-content-center pl-5 pr-5 border border-2 rounded shadow-lg p-4 mb-4 bg-white"

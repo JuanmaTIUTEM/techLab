@@ -22,11 +22,7 @@
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane container active" id="home">
-    <div class="d-flex flex-column">
-      <div class="d-flex flex-wrap justify-content-end">
-        <div><button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#nwArticle" onclick="nwArticle()">Nuevo</button></div>
-      </div>
-    </div>
+    ...
   </div>
   <div class="tab-pane container fade" id="menu1">...</div>
   <div class="tab-pane container fade" id="menu2">...</div>
