@@ -33,9 +33,5 @@ class Welcome extends CI_Controller {
 		$this->load->view('Templates/footer');
 	}
 
-	public function inventario(){
-		$this->load->view('Templates/head');
-		$this->load->view('Inventario/vwPrincipal');
-		$this->load->view('Templates/footer');
-	}
+	
 }

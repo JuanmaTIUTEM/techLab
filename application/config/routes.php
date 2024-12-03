@@ -54,4 +54,5 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['login'] = 'welcome/login';
-$route['inventario'] = 'welcome/inventario';
+$route['inventario'] = 'inventario';
+$route['newArticle'] = 'inventario/registrarProducto';

@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="w-25 d-flex justify-content-center">
-        <div><button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#nwArticle" onclick="nwArticle()">Nuevo</button></div>
+        <div><button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#nwArticle" >Nuevo</button></div>
       </div>
     </div>
     <hr>

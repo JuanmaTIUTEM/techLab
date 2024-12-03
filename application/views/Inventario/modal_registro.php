@@ -1,3 +1,8 @@
+
+<script src="https://unpkg.com/html5-qrcode/minified/
+html5-qrcode.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <!-- Modal HTML -->
 <div class="modal fade" id="nwArticle" tabindex="-1" aria-labelledby="nwArticleLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -11,17 +16,17 @@
 
       <!-- Modal Body -->
       <div class="modal-body">
-        <form id="registroForm">
+        <form id="registroForm" action="<?= site_url('newArticle') ?>" method='POST'>
           <!-- Categoría -->
           <div class="mb-3">
             <label for="categoria" class="form-label">Categoría:</label>
-            <select id="categoria" name="categoria" class="form-select" onchange="toggleFields()">
-              <option value="">Selecciona una categoría</option>
-              <option value="herramientas">Herramientas</option>
-              <option value="materiales">Materiales</option>
-              <option value="equipos">Equipos</option>
-              <option value="consumibles">Consumibles</option>
-              <option value="cables">Cables</option>
+            <select id="categoria" name="categoria" class="form-select" >
+                <option value="">Selecciona una categoría</option>
+                <?php foreach ($categorias as $categoria) { ?>
+                    <option value="<?= $categoria['id_categoria'] ?>" title="<?= $categoria['descripcionCategoria'] ?>">
+                        <?= $categoria['nombre_categoria'] ?>
+                    </option>
+                <?php } ?>
             </select>
           </div>
 
@@ -33,35 +38,28 @@
 
           <div class="mb-3">
             <label for="descripcion" class="form-label">Descripción:</label>
-            <input type="text" id="descripcion" name="descripcion" class="form-control" required>
+            <input type="text" id="descripcion" name="descripcion" class="form-control" >
           </div>
 
           <!-- Campos específicos según categoría -->
           <div id="categoriaFields">
             <!-- Número de Serie (Herramientas y Equipos) -->
-            <div class="mb-3 d-none" id="numeroSerieField">
+            <div class="mb-3 " id="numeroSerieField">
               <label for="numeroSerie" class="form-label">Número de Serie:</label>
               <input type="text" id="numeroSerie" name="numeroSerie" class="form-control">
             </div>
 
             <!-- Número de Inventario (Herramientas y Equipos) -->
-            <div class="mb-3 d-none" id="numeroInventarioField">
+            <div class="mb-3 " id="numeroInventarioField">
               <label for="numeroInventario" class="form-label">Número de Inventario:</label>
               <input type="text" id="numeroInventario" name="numeroInventario" class="form-control">
             </div>
 
             <!-- Cantidad (Cables) -->
-            <div class="mb-3 d-none" id="cantidadField">
+            <div class="mb-3 " id="cantidadField">
               <label for="cantidad" class="form-label">Cantidad:</label>
               <input type="number" id="cantidad" name="cantidad" class="form-control" value="1" min="1">
             </div>
-
-            <!-- Agrupación (Materiales pequeños) -->
-            <div class="mb-3 d-none" id="agrupacionField">
-              <label for="agrupacion" class="form-label">Agrupar por características similares:</label>
-              <input type="checkbox" id="agrupacion" name="agrupacion"> Agrupar elementos con características similares
-            </div>
-          </div>
 
           <!-- Ubicación -->
           <div class="mb-3">
@@ -83,7 +81,19 @@
             </select>
           </div>
 
-          <button type="submit" class="btn btn-primary">Registrar</button>
+      <!-- Lector de código 
+          <div class="mb-3">
+            <label for="codigoEscaneado" class="form-label">Código Escaneado:</label>
+            <div id="reader" style="width: 100%; max-width: 400px; margin: 10px auto;"></div>
+            <input type="text" id="codigoEscaneado" name="codigoEscaneado" class="form-control" readonly>
+            <button type="button" class="btn btn-secondary mt-2" onclick="iniciarEscaner()">Escanear Código</button>
+            <button type="button" class="btn btn-danger mt-2" onclick="detenerEscaner()">Detener Escáner</button>
+          </div>
+
+
+       Fin Lector de código -->
+
+          <button type="submit" class="btn btn-primary" >Registrar</button>
         </form>
       </div>
 
@@ -99,7 +109,7 @@
 
 <script>
   
-  function toggleFields() {
+  /*function toggleFields() {
     const categoria = document.getElementById('categoria').value;
 
     // Referencias a los campos
@@ -109,21 +119,63 @@
     const agrupacionField = document.getElementById('agrupacionField');
 
     // Resetear la visibilidad
-    numeroSerieField.classList.add('d-none');
-    numeroInventarioField.classList.add('d-none');
-    cantidadField.classList.add('d-none');
-    agrupacionField.classList.add('d-none');
+    numeroSerieField.classList.add('');
+    numeroInventarioField.classList.add('');
+    cantidadField.classList.add('');
+    agrupacionField.classList.add('');
 
     // Mostrar campos según la categoría
     if (categoria === 'herramientas' || categoria === 'equipos') {
-      numeroSerieField.classList.remove('d-none');
-      numeroInventarioField.classList.remove('d-none');
+      numeroSerieField.classList.remove('');
+      numeroInventarioField.classList.remove('');
     } else if (categoria === 'cables') {
-      cantidadField.classList.remove('d-none');
+      cantidadField.classList.remove('');
     } else if (categoria === 'materiales') {
-      agrupacionField.classList.remove('d-none');
+      agrupacionField.classList.remove('');
     }
   }
+
+
+  
+codigo scaner
+  let scanner = null;
+
+  function iniciarEscaner() {
+    if (!scanner) {
+      scanner = new Html5Qrcode("reader");
+    }
+
+    scanner.start(
+      { facingMode: "environment" }, // Usa la cámara trasera
+      {
+        fps: 10, // Velocidad de fotogramas por segundo
+        qrbox: 250, // Área de escaneo
+      },
+      (decodedText, decodedResult) => {
+        // Procesar el texto escaneado
+        document.getElementById('codigoEscaneado').value = decodedText;
+        detenerEscaner(); // Detener escáner tras leer un código
+      },
+      (errorMessage) => {
+        // Manejo de errores durante el escaneo
+        console.log("Error de escaneo: ", errorMessage);
+      }
+    ).catch((err) => {
+      console.error("Error al iniciar el escáner: ", err);
+    });
+  }
+
+  function detenerEscaner() {
+    if (scanner) {
+      scanner.stop().then(() => {
+        console.log("Escáner detenido.");
+      }).catch((err) => {
+        console.error("Error al detener el escáner: ", err);
+      });
+    }
+  }
+
+*/
 
 
 </script>
