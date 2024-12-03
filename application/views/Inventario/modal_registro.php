@@ -17,29 +17,39 @@ html5-qrcode.min.js"></script>
       <!-- Modal Body -->
       <div class="modal-body">
         <form id="registroForm" action="<?= site_url('newArticle') ?>" method='POST'>
-          <!-- Categoría -->
-          <div class="mb-3">
-            <label for="categoria" class="form-label">Categoría:</label>
-            <select id="categoria" name="categoria" class="form-select" >
-                <option value="">Selecciona una categoría</option>
-                <?php foreach ($categorias as $categoria) { ?>
-                    <option value="<?= $categoria['id_categoria'] ?>" title="<?= $categoria['descripcionCategoria'] ?>">
-                        <?= $categoria['nombre_categoria'] ?>
-                    </option>
-                <?php } ?>
-            </select>
+
+          <div class="d-flex flex-wrap container">
+            <!-- Campos Generales -->
+            <div class="mb-3 w-35">
+              <label for="nombre" class="form-label">Nombre del Producto:</label>
+              <input type="text" id="nombre" name="nombre" class="form-control" required>
+            </div>
+            <div class="mb-3 w-5">
+
+            </div>
+            <div class="mb-3 w-55">
+              <label for="categoria" class="form-label">Categoría:</label>
+              <select id="categoria" name="categoria" class="form-select" >
+                  <option value="">Selecciona una categoría</option>
+                  <?php foreach ($categorias as $categoria) { ?>
+                      <option value="<?= $categoria['id_categoria'] ?>" title="<?= $categoria['descripcionCategoria'] ?>">
+                          <?= $categoria['nombre_categoria'] ?>
+                      </option>
+                  <?php } ?>
+              </select>
+            </div>
           </div>
+          <!-- Categoría -->
+          
 
           <!-- Campos Generales -->
-          <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre del Producto:</label>
-            <input type="text" id="nombre" name="nombre" class="form-control" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="descripcion" class="form-label">Descripción:</label>
-            <input type="text" id="descripcion" name="descripcion" class="form-control" >
-          </div>
+          
+          <div class="d-flex flex-column justify-content-around">
+            <div class="mb-3 w1-90">
+                <label for="descripcion" class="form-label">Descripción:</label>
+                <textarea  type="text" id="descripcion" name="descripcion" class="form-control" ></textarea>
+            </div>
+          </div>          
 
           <!-- Campos específicos según categoría -->
           <div id="categoriaFields">

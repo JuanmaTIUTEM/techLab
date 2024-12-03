@@ -57,9 +57,32 @@ h5 {
   font-family: Ubuntu, sans-serif !important;
   font-size: 25px !important;  
 }
+.w-5{
+    width: 5%;
 
+}
+.w-10{
+    width: 10%;
+
+}
 .w-30{
     width: 30%;
+
+}
+
+
+.w-35{
+    width: 35%;
+
+}
+
+
+.w-55{
+    width: 55%;
+
+}
+.w1-90{
+    width: 90%;
 
 }
 
