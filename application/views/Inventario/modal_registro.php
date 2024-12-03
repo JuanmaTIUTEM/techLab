@@ -2,10 +2,54 @@
 <script src="https://unpkg.com/html5-qrcode/minified/
 html5-qrcode.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .desc{
+      font-size: 0.8rem;
+    }
+    #cameraCanvas, #cameraView, #previewImage {
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      display: block;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    @media (max-width: 576px) {
+      .section-title {
+        font-size: 1.2rem;
+      }
+    }
+    /* Estilo para ajustar el tamaño del modal */
+    @media (min-width: 576px) {
+      .modal-lg {
+        max-width: 80%; /* Ocupa 80% del ancho de la pantalla en tamaños medianos */
+      }
+    }
 
+    @media (min-width: 992px) {
+      .modal-lg {
+        max-width: 70%; /* Ocupa 70% en pantallas más grandes */
+      }
+    }
+
+    /* Ajuste de altura máxima para evitar overflow */
+    .modal-content {
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+  </style>
 <!-- Modal HTML -->
 <div class="modal fade" id="nwArticle" tabindex="-1" aria-labelledby="nwArticleLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
 
       <!-- Modal Header -->
@@ -18,95 +62,122 @@ html5-qrcode.min.js"></script>
       <div class="modal-body">
         <form id="registroForm" action="<?= site_url('newArticle') ?>" method='POST'>
 
-          <div class="d-flex flex-wrap container">
+          <div class="d-flex justify-content-around">
             <!-- Campos Generales -->
-            <div class="mb-3 w-35">
+            <div class="mb-2 w-35">
               <label for="nombre" class="form-label">Nombre del Producto:</label>
               <input type="text" id="nombre" name="nombre" class="form-control" required>
             </div>
-            <div class="mb-3 w-5">
+            <div class="mb-2 w-5">
 
             </div>
-            <div class="mb-3 w-55">
+            <div class="mb-2 w-55">
               <label for="categoria" class="form-label">Categoría:</label>
-              <select id="categoria" name="categoria" class="form-select" >
-                  <option value="">Selecciona una categoría</option>
+              <select id="categoria" name="categoria" class="form-select" onchange="mostrarDescripcion()">
+                  <option value="0">Selecciona una categoría</option>
                   <?php foreach ($categorias as $categoria) { ?>
-                      <option value="<?= $categoria['id_categoria'] ?>" title="<?= $categoria['descripcionCategoria'] ?>">
+                      <option value="<?= $categoria['id_categoria'] ?>" data-descripcion="<?= $categoria['descripcionCategoria'] ?>">
                           <?= $categoria['nombre_categoria'] ?>
                       </option>
                   <?php } ?>
               </select>
             </div>
+            
           </div>
           <!-- Categoría -->
           
+          <div class="d-flex justify-content-around">
+            <div class="mb-2 w-35">
+
+            </div>
+            <div class="mb-2 w-45">
+                <label id="descripcionCategoria" class="form-control-plaintext desc"></label>
+              </div>
+          </div>
 
           <!-- Campos Generales -->
           
-          <div class="d-flex flex-column justify-content-around">
-            <div class="mb-3 w1-90">
+          <div class="d-flex justify-content-around">
+            <div class="mb-2 w-75">
                 <label for="descripcion" class="form-label">Descripción:</label>
-                <textarea  type="text" id="descripcion" name="descripcion" class="form-control" ></textarea>
+                <textarea  type="text" id="descripcion" name="descripcion" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-2 w-20" id="cantidadField">
+              <label for="cantidad" class="form-label">Cantidad:</label>
+              <input type="number" id="cantidad" name="cantidad" class="form-control text-center" value="1" min="1">
             </div>
           </div>          
 
           <!-- Campos específicos según categoría -->
-          <div id="categoriaFields">
+          <div class="d-flex justify-content-around">
             <!-- Número de Serie (Herramientas y Equipos) -->
-            <div class="mb-3 " id="numeroSerieField">
+            <div class="mb-2 w-45" id="numeroSerieField">
               <label for="numeroSerie" class="form-label">Número de Serie:</label>
               <input type="text" id="numeroSerie" name="numeroSerie" class="form-control">
             </div>
 
             <!-- Número de Inventario (Herramientas y Equipos) -->
-            <div class="mb-3 " id="numeroInventarioField">
+            <div class="mb-2 w-45" id="numeroInventarioField">
               <label for="numeroInventario" class="form-label">Número de Inventario:</label>
               <input type="text" id="numeroInventario" name="numeroInventario" class="form-control">
             </div>
+          </div>
 
             <!-- Cantidad (Cables) -->
-            <div class="mb-3 " id="cantidadField">
-              <label for="cantidad" class="form-label">Cantidad:</label>
-              <input type="number" id="cantidad" name="cantidad" class="form-control" value="1" min="1">
-            </div>
-
+            
+        <div class="d-flex justify-content-around">
           <!-- Ubicación -->
-          <div class="mb-3">
+          <div class="mb-2 w-45">
             <label for="ubicacion" class="form-label">Ubicación:</label>
-            <select id="ubicacion" name="ubicacion" class="form-select">
-              <option value="laboratorio1">Laboratorio 1</option>
-              <option value="laboratorio2">Laboratorio 2</option>
-              <option value="aula">Aula</option>
+            <select id="ubicacion" name="ubicacion" class="form-select" onchange="mostrarDesUbicacion()">
+              <option value="0">Seleccione una opción...</option>
+
+              <?php foreach($ubicaciones as $ubicacion) {?>
+              <option value="<?= $ubicacion['id_ubicacion'] ?>" title="<?= $ubicacion['descripcionUbicacion'] ?>" data-descUbicacion="<?= $ubicacion['descripcionUbicacion'] ?>" ><?= $ubicacion['nombreUbicacion'] ?></option>
+            <?php } ?>
             </select>
           </div>
 
           <!-- Estado -->
-          <div class="mb-3">
+          <div class="mb-2 w-45">
             <label for="estado" class="form-label">Estado:</label>
-            <select id="estado" name="estado" class="form-select">
-              <option value="nuevo">Nuevo</option>
-              <option value="usado">Usado</option>
-              <option value="defectuoso">Defectuoso</option>
+            <select id="estado" name="estado" class="form-select" onchange="mostrarDesEstado()">
+              <option value="0">Seleccione una opción...</option>
+                <?php foreach($estados as $estado) {?>
+                <option value="<?= $estado['id_estado'] ?>" title="<?= $estado['descripcionEstado'] ?>" data-descEstado="<?= $estado['descripcionEstado'] ?>"><?= $estado['nombre_estado'] ?></option>
+              <?php } ?>
             </select>
           </div>
+        </div>
 
-      <!-- Lector de código 
-          <div class="mb-3">
-            <label for="codigoEscaneado" class="form-label">Código Escaneado:</label>
-            <div id="reader" style="width: 100%; max-width: 400px; margin: 10px auto;"></div>
-            <input type="text" id="codigoEscaneado" name="codigoEscaneado" class="form-control" readonly>
-            <button type="button" class="btn btn-secondary mt-2" onclick="iniciarEscaner()">Escanear Código</button>
-            <button type="button" class="btn btn-danger mt-2" onclick="detenerEscaner()">Detener Escáner</button>
+        <!--Descripciones -->
+
+
+        <div class="d-flex justify-content-around">
+          <!-- Ubicación -->
+          <div class="mb-2 w-45">
+            <div class="mb-2">
+              <label id="descripcionUbicacion" class="form-control-plaintext desc"></label>
+            </div>
           </div>
 
+          <!-- Estado -->
+          <div class="mb-2 w-45">
+            <div class="mb-2">
+              <label id="descripcionEstado" class="form-control-plaintext desc"></label>
+            </div>
+          </div>
+        </div>
 
-       Fin Lector de código -->
 
-          <button type="submit" class="btn btn-primary" >Registrar</button>
+        <div class="d-flex justify-content-center mt-2">
+          <div>
+            <button type="submit" class="btn btn-outline-primary " >Registrar</button>
+          </div>
+        </div>
+
         </form>
       </div>
-
       <!-- Modal Footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -118,74 +189,39 @@ html5-qrcode.min.js"></script>
 
 
 <script>
-  
-  /*function toggleFields() {
-    const categoria = document.getElementById('categoria').value;
 
-    // Referencias a los campos
-    const numeroSerieField = document.getElementById('numeroSerieField');
-    const numeroInventarioField = document.getElementById('numeroInventarioField');
-    const cantidadField = document.getElementById('cantidadField');
-    const agrupacionField = document.getElementById('agrupacionField');
+  function mostrarDesUbicacion() {
+        // Obtener el elemento select y el área de texto
+        const select = document.getElementById('ubicacion');
+        const descripcionTextarea = document.getElementById('descripcionUbicacion');
 
-    // Resetear la visibilidad
-    numeroSerieField.classList.add('');
-    numeroInventarioField.classList.add('');
-    cantidadField.classList.add('');
-    agrupacionField.classList.add('');
-
-    // Mostrar campos según la categoría
-    if (categoria === 'herramientas' || categoria === 'equipos') {
-      numeroSerieField.classList.remove('');
-      numeroInventarioField.classList.remove('');
-    } else if (categoria === 'cables') {
-      cantidadField.classList.remove('');
-    } else if (categoria === 'materiales') {
-      agrupacionField.classList.remove('');
-    }
-  }
-
-
-  
-codigo scaner
-  let scanner = null;
-
-  function iniciarEscaner() {
-    if (!scanner) {
-      scanner = new Html5Qrcode("reader");
+        // Obtener la descripción de la categoría seleccionada
+        const descripcion = select.options[select.selectedIndex].getAttribute('data-descUbicacion');
+        // Actualizar el contenido del área de texto
+        descripcionTextarea.textContent = descripcion || '';
     }
 
-    scanner.start(
-      { facingMode: "environment" }, // Usa la cámara trasera
-      {
-        fps: 10, // Velocidad de fotogramas por segundo
-        qrbox: 250, // Área de escaneo
-      },
-      (decodedText, decodedResult) => {
-        // Procesar el texto escaneado
-        document.getElementById('codigoEscaneado').value = decodedText;
-        detenerEscaner(); // Detener escáner tras leer un código
-      },
-      (errorMessage) => {
-        // Manejo de errores durante el escaneo
-        console.log("Error de escaneo: ", errorMessage);
+    function mostrarDesEstado() {
+          // Obtener el elemento select y el área de texto
+          const select = document.getElementById('estado');
+          const descripcionTextarea = document.getElementById('descripcionEstado');
+
+          // Obtener la descripción de la categoría seleccionada
+          const descripcion = select.options[select.selectedIndex].getAttribute('data-descEstado');
+
+          // Actualizar el contenido del área de texto
+          descripcionTextarea.textContent = descripcion || '';
       }
-    ).catch((err) => {
-      console.error("Error al iniciar el escáner: ", err);
-    });
-  }
 
-  function detenerEscaner() {
-    if (scanner) {
-      scanner.stop().then(() => {
-        console.log("Escáner detenido.");
-      }).catch((err) => {
-        console.error("Error al detener el escáner: ", err);
-      });
+    function mostrarDescripcion() {
+        // Obtener el elemento select y el label
+        const select = document.getElementById('categoria');
+        const descripcionLabel = document.getElementById('descripcionCategoria');
+
+        // Obtener la descripción de la categoría seleccionada
+        const descripcion = select.options[select.selectedIndex].getAttribute('data-descripcion');
+
+        // Actualizar el contenido del label
+        descripcionLabel.textContent = descripcion || '';
     }
-  }
-
-*/
-
-
 </script>

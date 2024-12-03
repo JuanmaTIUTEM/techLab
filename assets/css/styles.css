@@ -65,11 +65,22 @@ h5 {
     width: 10%;
 
 }
+.w-20{
+    width: 20%;
+
+}
 .w-30{
     width: 30%;
 
 }
+.w-40{
+    width: 40%;
 
+}
+.w-45{
+    width: 45%;
+
+}
 
 .w-35{
     width: 35%;
@@ -100,3 +111,7 @@ h5 {
     text-align: center;
 }
 
+/*Descripción de categorias materiales*/
+.desc{
+    
+}

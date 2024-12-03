@@ -12,10 +12,10 @@
     <a class="nav-link" data-bs-toggle="tab" href="#menu2">Hardware</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-bs-toggle="tab" href="#menu2">Materiales</a>
+    <a class="nav-link" data-bs-toggle="tab" href="#menu3">Materiales</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-bs-toggle="tab" href="#menu2">Sin clasificar</a>
+    <a class="nav-link" data-bs-toggle="tab" href="#menu4">Sin clasificar</a>
   </li>
 </ul>
 

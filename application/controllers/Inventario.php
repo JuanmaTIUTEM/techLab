@@ -10,6 +10,8 @@ class Inventario extends CI_Controller {
 	}
 	public function index(){
 		$info['categorias'] = $this->ModInventario->getCategorias();
+		$info['estados'] = $this->ModInventario->getEstados();
+		$info['ubicaciones'] = $this->ModInventario->getUbicaciones();
 		$this->load->view('Templates/head');
 		$this->load->view('Inventario/vwPrincipal',$info);
 		$this->load->view('Templates/footer');

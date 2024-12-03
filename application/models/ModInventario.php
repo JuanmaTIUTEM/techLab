@@ -20,8 +20,26 @@ class ModInventario extends CI_Model {
 			return false;
 		}
 	}
-	//public function getUbicaciones{}
-	//public function getEstados{}
+	public function getUbicaciones(){
+		$result = $this->db->get('ubicaciones');
+		//$result = $this->db->query($query);
+
+		if($result->num_rows() > 0){
+			return $result->result_array();
+		}else{
+			return false;
+		}
+	}
+	public function getEstados(){
+		$result = $this->db->get('estados');
+		//$result = $this->db->query($query);
+
+		if($result->num_rows() > 0){
+			return $result->result_array();
+		}else{
+			return false;
+		}
+	}
 	//public function getProductos{}
 
 	public function insertProduct($data){
