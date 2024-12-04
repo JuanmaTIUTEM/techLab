@@ -60,121 +60,127 @@ html5-qrcode.min.js"></script>
 
       <!-- Modal Body -->
       <div class="modal-body">
-        <form id="registroForm" action="<?= site_url('newArticle') ?>" method='POST'>
+        <form id="registroForm" action="<?= site_url('newArticle') ?>" method='POST' enctype="multipart/form-data">
 
-          <div class="d-flex justify-content-around">
+            <div class="d-flex justify-content-around">
+              <!-- Campos Generales -->
+              <div class="mb-2 w-35">
+                <label for="nombre" class="form-label">Nombre del Producto:</label>
+                <input type="text" id="nombre" name="nombre" class="form-control" required>
+              </div>
+              <div class="mb-2 w-5">
+
+              </div>
+              <div class="mb-2 w-55">
+                <label for="categoria" class="form-label">Categoría:</label>
+                <select id="categoria" name="categoria" class="form-select" onchange="mostrarDescripcion()">
+                    <option value="0">Selecciona una categoría</option>
+                    <?php foreach ($categorias as $categoria) { ?>
+                        <option value="<?= $categoria['id_categoria'] ?>" data-descripcion="<?= $categoria['descripcionCategoria'] ?>">
+                            <?= $categoria['nombre_categoria'] ?>
+                        </option>
+                    <?php } ?>
+                </select>
+              </div>
+              
+            </div>
+            <!-- Categoría -->
+            
+            <div class="d-flex justify-content-around">
+              <div class="mb-2 w-35">
+
+              </div>
+              <div class="mb-2 w-45">
+                  <label id="descripcionCategoria" class="form-control-plaintext desc"></label>
+                </div>
+            </div>
+
             <!-- Campos Generales -->
-            <div class="mb-2 w-35">
-              <label for="nombre" class="form-label">Nombre del Producto:</label>
-              <input type="text" id="nombre" name="nombre" class="form-control" required>
-            </div>
-            <div class="mb-2 w-5">
+            
+            <div class="d-flex justify-content-around">
+              <div class="mb-2 w-50">
+                  <label for="descripcion" class="form-label">Descripción:</label>
+                  <textarea  type="text" id="descripcion" name="descripcion" class="form-control" rows="3"></textarea>
+              </div>
+              <div class="mb-2 w-25"  id="imagenes-container">
+                  <label for="imagenes" class="form-label">Fotos:</label>
+                  <input  type="file" id="imagenes" name="imagenes[]" class="form-control" accept="image/*" multiple >
+                  
+              </div>
+              <div class="mb-2 w-20" id="cantidadField">
+                <label for="cantidad" class="form-label">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" class="form-control" value="1">
+              </div>
+               
+            </div>          
 
+            <!-- Campos específicos según categoría -->
+            <div class="d-flex justify-content-around">
+              <!-- Número de Serie (Herramientas y Equipos) -->
+              <div class="mb-2 w-45" id="numeroSerieField">
+                <label for="numeroSerie" class="form-label">Número de Serie:</label>
+                <input type="text" id="numeroSerie" name="numeroSerie" class="form-control">
+              </div>
+
+              <!-- Número de Inventario (Herramientas y Equipos) -->
+              <div class="mb-2 w-45" id="numeroInventarioField">
+                <label for="numeroInventario" class="form-label">Número de Inventario:</label>
+                <input type="text" id="numeroInventario" name="numeroInventario" class="form-control">
+              </div>
             </div>
-            <div class="mb-2 w-55">
-              <label for="categoria" class="form-label">Categoría:</label>
-              <select id="categoria" name="categoria" class="form-select" onchange="mostrarDescripcion()">
-                  <option value="0">Selecciona una categoría</option>
-                  <?php foreach ($categorias as $categoria) { ?>
-                      <option value="<?= $categoria['id_categoria'] ?>" data-descripcion="<?= $categoria['descripcionCategoria'] ?>">
-                          <?= $categoria['nombre_categoria'] ?>
-                      </option>
-                  <?php } ?>
+
+              <!-- Cantidad (Cables) -->
+              
+          <div class="d-flex justify-content-around">
+            <!-- Ubicación -->
+            <div class="mb-2 w-45">
+              <label for="ubicacion" class="form-label">Ubicación:</label>
+              <select id="ubicacion" name="ubicacion" class="form-select" onchange="mostrarDesUbicacion()">
+                <option value="0">Seleccione una opción...</option>
+
+                <?php foreach($ubicaciones as $ubicacion) {?>
+                <option value="<?= $ubicacion['id_ubicacion'] ?>" title="<?= $ubicacion['descripcionUbicacion'] ?>" data-descUbicacion="<?= $ubicacion['descripcionUbicacion'] ?>" ><?= $ubicacion['nombreUbicacion'] ?></option>
+              <?php } ?>
               </select>
             </div>
-            
-          </div>
-          <!-- Categoría -->
-          
-          <div class="d-flex justify-content-around">
-            <div class="mb-2 w-35">
 
-            </div>
+            <!-- Estado -->
             <div class="mb-2 w-45">
-                <label id="descripcionCategoria" class="form-control-plaintext desc"></label>
+              <label for="estado" class="form-label">Estado:</label>
+              <select id="estado" name="estado" class="form-select" onchange="mostrarDesEstado()">
+                <option value="0">Seleccione una opción...</option>
+                  <?php foreach($estados as $estado) {?>
+                  <option value="<?= $estado['id_estado'] ?>" title="<?= $estado['descripcionEstado'] ?>" data-descEstado="<?= $estado['descripcionEstado'] ?>"><?= $estado['nombre_estado'] ?></option>
+                <?php } ?>
+              </select>
+            </div>
+          </div>
+
+          <!--Descripciones -->
+
+
+          <div class="d-flex justify-content-around">
+            <!-- Ubicación -->
+            <div class="mb-2 w-45">
+              <div class="mb-2">
+                <label id="descripcionUbicacion" class="form-control-plaintext desc"></label>
               </div>
-          </div>
-
-          <!-- Campos Generales -->
-          
-          <div class="d-flex justify-content-around">
-            <div class="mb-2 w-75">
-                <label for="descripcion" class="form-label">Descripción:</label>
-                <textarea  type="text" id="descripcion" name="descripcion" class="form-control" rows="3"></textarea>
-            </div>
-            <div class="mb-2 w-20" id="cantidadField">
-              <label for="cantidad" class="form-label">Cantidad:</label>
-              <input type="number" id="cantidad" name="cantidad" class="form-control text-center" value="1" min="1">
-            </div>
-          </div>          
-
-          <!-- Campos específicos según categoría -->
-          <div class="d-flex justify-content-around">
-            <!-- Número de Serie (Herramientas y Equipos) -->
-            <div class="mb-2 w-45" id="numeroSerieField">
-              <label for="numeroSerie" class="form-label">Número de Serie:</label>
-              <input type="text" id="numeroSerie" name="numeroSerie" class="form-control">
             </div>
 
-            <!-- Número de Inventario (Herramientas y Equipos) -->
-            <div class="mb-2 w-45" id="numeroInventarioField">
-              <label for="numeroInventario" class="form-label">Número de Inventario:</label>
-              <input type="text" id="numeroInventario" name="numeroInventario" class="form-control">
+            <!-- Estado -->
+            <div class="mb-2 w-45">
+              <div class="mb-2">
+                <label id="descripcionEstado" class="form-control-plaintext desc"></label>
+              </div>
             </div>
           </div>
 
-            <!-- Cantidad (Cables) -->
-            
-        <div class="d-flex justify-content-around">
-          <!-- Ubicación -->
-          <div class="mb-2 w-45">
-            <label for="ubicacion" class="form-label">Ubicación:</label>
-            <select id="ubicacion" name="ubicacion" class="form-select" onchange="mostrarDesUbicacion()">
-              <option value="0">Seleccione una opción...</option>
 
-              <?php foreach($ubicaciones as $ubicacion) {?>
-              <option value="<?= $ubicacion['id_ubicacion'] ?>" title="<?= $ubicacion['descripcionUbicacion'] ?>" data-descUbicacion="<?= $ubicacion['descripcionUbicacion'] ?>" ><?= $ubicacion['nombreUbicacion'] ?></option>
-            <?php } ?>
-            </select>
-          </div>
-
-          <!-- Estado -->
-          <div class="mb-2 w-45">
-            <label for="estado" class="form-label">Estado:</label>
-            <select id="estado" name="estado" class="form-select" onchange="mostrarDesEstado()">
-              <option value="0">Seleccione una opción...</option>
-                <?php foreach($estados as $estado) {?>
-                <option value="<?= $estado['id_estado'] ?>" title="<?= $estado['descripcionEstado'] ?>" data-descEstado="<?= $estado['descripcionEstado'] ?>"><?= $estado['nombre_estado'] ?></option>
-              <?php } ?>
-            </select>
-          </div>
-        </div>
-
-        <!--Descripciones -->
-
-
-        <div class="d-flex justify-content-around">
-          <!-- Ubicación -->
-          <div class="mb-2 w-45">
-            <div class="mb-2">
-              <label id="descripcionUbicacion" class="form-control-plaintext desc"></label>
+          <div class="d-flex justify-content-center mt-2">
+            <div>
+              <button type="submit" class="btn btn-outline-primary " >Registrar</button>
             </div>
           </div>
-
-          <!-- Estado -->
-          <div class="mb-2 w-45">
-            <div class="mb-2">
-              <label id="descripcionEstado" class="form-control-plaintext desc"></label>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="d-flex justify-content-center mt-2">
-          <div>
-            <button type="submit" class="btn btn-outline-primary " >Registrar</button>
-          </div>
-        </div>
 
         </form>
       </div>
@@ -189,6 +195,8 @@ html5-qrcode.min.js"></script>
 
 
 <script>
+
+
 
   function mostrarDesUbicacion() {
         // Obtener el elemento select y el área de texto
