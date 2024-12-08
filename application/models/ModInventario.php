@@ -42,27 +42,37 @@ class ModInventario extends CI_Model {
 	}
 	//public function getProductos{}
 
-	public function insertProduct($inventario_data){
+	public function guardarProducto($data)
+    {
+        // Obtener los datos del producto
+        $nombre_producto = $data['nombre'];
+        $descripcion = $data['descripcion'];
+        $categoria = $data['categoria'];
+        $ubicacion = $data['ubicacion'];
+        $estado = $data['estado'];
+        $imagenes = json_decode($data['imagenes'], true); // Decodificar JSON de imágenes
+        $detalles = json_decode($data['detalles'], true); // Decodificar JSON de detalles
 
-	    // Preparar los parámetros para el procedimiento almacenado
-	    $data = [
-	        'p_nombre' => $inventario_data['nombre'],
-	        'p_descripcion' => $inventario_data['descripcion'],
-	        'p_cantidad' => $inventario_data['cantidad'],
-	        'p_categoria' => $inventario_data['categoria'],
-	        'p_numeroSerie' => $inventario_data['numeroSerie'],
-	        'p_numeroInventario' => $inventario_data['numeroInventario'],
-	        'p_ubicacion' => $inventario_data['ubicacion'],
-	        'p_estado' => $inventario_data['estado'],
-	        'p_imagen_principal' => $inventario_data['imagen_principal'],
-	        'p_imagenes' => $inventario_data['imagenes'] // JSON con las rutas de las imágenes
-	    ];
+        // Llamada al procedimiento almacenado
+        $sql = "CALL registrarProducto(?, ?, ?, ?, ?, ?, ?)";
+        $params = [
+            $nombre_producto,
+            $descripcion,
+            $categoria,
+            $ubicacion,
+            $estado,
+            json_encode($imagenes), // Convertir las imágenes a JSON
+            json_encode($detalles)  // Convertir detalles a JSON
+        ];
 
-	    print_r($data);
+        // Ejecutar la consulta
+        $query = $this->db->query($sql, $params);
 
-	    /*// Ejecutar el procedimiento almacenado
-	    $this->db->query("CALL registrar_inventario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", $data);
-	    return $this->db->affected_rows() > 0;*/
-
-	}
+        // Verificar si la consulta fue exitosa
+        if ($query) {
+            return true; // Retornar true si la inserción fue exitosa
+        } else {
+            return false; // Retornar false si ocurrió un error
+        }
+    }
 }

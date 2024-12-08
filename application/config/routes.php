@@ -55,4 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['login'] = 'welcome/login';
 $route['inventario'] = 'inventario';
-$route['newArticle'] = 'inventario/registrarProducto';
+$route['newArticle'] = 'inventario/nuevoProducto';
